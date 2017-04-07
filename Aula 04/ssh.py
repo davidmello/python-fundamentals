@@ -18,5 +18,10 @@ passwd = '4linux'
 client.connect(hostname=host, username=user, password=passwd)
 
 
-stdin,stdout,stderr = client.exec_command('ls -la /')
-print stdout.read()
+stdin,stdout,stderr = client.exec_command('cat /etc/passwd2 | grep noturno')
+
+if stderr.channel.recv_exit_status() != 0:
+	print stderr.channel.recv_exit_status()
+	print stderr.read()
+else:
+	print stdout.read()
